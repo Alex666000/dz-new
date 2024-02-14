@@ -5,7 +5,7 @@ import React, {
     HTMLAttributes,
 } from 'react'
 import s from './SuperRadio.module.css'
-import {logDOM} from '@testing-library/react';
+import {OptionType} from "../../HW7";
 
 type DefaultRadioPropsType = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
@@ -36,33 +36,36 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
     ...restProps
 }) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeOption && e.currentTarget.value && onChangeOption(e.currentTarget.value)
+        // делают студенты
+        // если onChange котрый работате с объектом события передаем ему e, onChangeOption
+        onChange && onChange(e)
+        onChangeOption?.(e.currentTarget.value)
     }
 
     const finalRadioClassName = s.radio + (className ? ' ' + className : '')
     const spanClassName = s.span + (spanProps?.className ? ' ' + spanProps.className : '')
 
-    const mappedOptions: any[] = options
-        ? options.map((o) => (
-              <label key={name + '-' + o.id} className={s.label}>
+    const mappedOptions: any[]   = options
+        ? options.map((option) => (
+              <label key={name + '-' + option.id} className={s.label}>
                   <input
-                      id={id + '-input-' + o.id}
+                      id={id + '-input-' + option.id}
                       className={finalRadioClassName}
                       type={'radio'}
-                      name={name}
-                      checked={o.id == value}
-                      value={o.id}
                       // name, checked, value делают студенты
-
+                      name={name}
+                      // синхронизировали value селекста и радиокнопки
+                      checked={option.value === value}
+                      value={option.value}
                       onChange={onChangeCallback}
                       {...restProps}
                   />
                   <span
-                      id={id + '-span-' + o.id}
+                      id={id + '-span-' + option.id}
                       {...spanProps}
                       className={spanClassName}
                   >
-                      {o.value}
+                      {option.value}
                   </span>
               </label>
           ))
@@ -72,3 +75,12 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
 }
 
 export default SuperRadio
+
+
+
+
+/*
+1: // map options with key --- Радиокнопки слетят на сайте залитом... // - двойной коммент - сломает на githubPages проект - тк jsx комментируется как палочка звездочка, а js код как // - значит эта запись находится между jsx и js поэтому слетит сайт
+2: // onChange - работает с event_ом; onChangeOption - показывает какой option  был выбран в радио-группе  --- работате с value
+3: : [] если options никто не передал, то мы заменяем мапленные опшены пустым массивом и тогда ничего не сломается
+ */

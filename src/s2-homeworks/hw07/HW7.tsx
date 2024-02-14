@@ -10,8 +10,9 @@ import s from './HW7.module.css'
 * 3 - в файле SuperRadio.tsx дописать name, checked, value (узнать для чего в радио name)
 * 4 - сделать стили в соответствии с дизайном
 * */
+export type OptionType = any /*{ id: number, value: string };*/
 
-const arr = [
+const options = [
     { id: 1, value: 'x' },
     { id: 2, value: 'y' },
     { id: 3, value: 'z' },
@@ -23,14 +24,13 @@ const HW7 = () => {
     return (
         <div id={'hw7'}>
             <div className={s2.hwTitle}>Homework #7</div>
-
             {/*демонстрация возможностей компонент:*/}
             <div className={s2.hw}>
                 <div className={s.container}>
                     <div>
                         <SuperSelect
                             id={'hw7-super-select'}
-                            options={arr}
+                            options={options}
                             value={value}
                             onChangeOption={onChangeOption}
                         />
@@ -39,7 +39,7 @@ const HW7 = () => {
                         <SuperRadio
                             id={'hw7-super-radio'}
                             name={'hw7-radio'}
-                            options={arr}
+                            options={options}
                             value={value}
                             onChangeOption={onChangeOption}
                         />
