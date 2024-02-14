@@ -1,0 +1,35 @@
+.buttonsContainer {
+    margin-top: 55px;
+    display: flex;
+    gap: 21px;
+}
+
+.buttonsContainer button {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    text-transform: capitalize;
+}
+
+.clock {
+    color: #000;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+}
+
+.watch {
+}
+
+.watch strong {
+    font-weight: 600;
+}
+
+.more {
+    margin-top: 8px;
+    position: absolute;
+    color: rgba(0, 0, 0, 0.50);
+    font-size: 16px;
+}

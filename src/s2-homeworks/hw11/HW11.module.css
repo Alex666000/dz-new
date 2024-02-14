@@ -1,0 +1,17 @@
+.container {
+    margin-top: 36px;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    gap: 19px;
+}
+
+.number {
+    color: #000;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+}
