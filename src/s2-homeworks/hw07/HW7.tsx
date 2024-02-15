@@ -25,7 +25,7 @@ const HW7 = () => {
                 <div className={s.container}>
                     <div>
                         <SuperSelect
-                            id={'#hw5-burger-menu'}
+                            id={'hw7-super-select'}
                             options={arr}
                             value={value}
                             onChangeOption={onChangeOption}
