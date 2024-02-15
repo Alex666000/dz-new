@@ -43,7 +43,7 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
     const spanClassName = s.span + (spanProps?.className ? ' ' + spanProps.className : '')
 
   console.log(value);
-  console.log(options?.map(option =>option.id === value));
+  console.log(options?.map(option => option.id === value));
 
     const mappedOptions: any[] = options
         ? options.map((option) => (
