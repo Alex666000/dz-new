@@ -39,6 +39,7 @@ const SuperSelect: React.FC<SuperSelectPropsType> = ({
         onChangeOption && e.currentTarget.value && onChangeOption(e.currentTarget.value)
     }
 
+    // если className передали в пропсах -то s.select + класс переданный в просах иначе просто s.select
     const finalSelectClassName = s.select + (className ? ' ' + className : '')
 
     return (
