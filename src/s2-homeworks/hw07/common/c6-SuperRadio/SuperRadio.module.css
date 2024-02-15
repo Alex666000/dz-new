@@ -1,8 +1,13 @@
 .radio {
-    margin-right: 13px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    color: #000;
 }
 
+
 .radio::before {
+
 }
 
 
@@ -10,11 +15,24 @@
 }
 
 .label {
-    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .options {
     display: flex;
     flex-direction: column;
-    gap: 20px
+    gap: 20px;
+}
+
+.span {
+    margin-left: 10px;
+    color: #000;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    align-items: center;
 }

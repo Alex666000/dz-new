@@ -5,6 +5,7 @@ import React, {
     HTMLAttributes,
 } from 'react'
 import s from './SuperRadio.module.css'
+import {logDOM} from '@testing-library/react';
 
 type DefaultRadioPropsType = DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
@@ -19,7 +20,6 @@ type DefaultSpanPropsType = DetailedHTMLProps<
 type SuperRadioPropsType = Omit<DefaultRadioPropsType, 'type'> & {
     options?: any[]
     onChangeOption?: (option: any) => void
-
     spanProps?: DefaultSpanPropsType // пропсы для спана
 }
 
@@ -35,33 +35,37 @@ const SuperRadio: React.FC<SuperRadioPropsType> = ({
     ...restProps
 }) => {
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeOption?.(e.currentTarget.value)
+      onChange?.(e)
+      onChangeOption?.(+e.currentTarget.value)
     }
 
     const finalRadioClassName = s.radio + (className ? ' ' + className : '')
     const spanClassName = s.span + (spanProps?.className ? ' ' + spanProps.className : '')
 
+  console.log(value);
+  console.log(options?.map(option => option.id === value));
+
     const mappedOptions: any[] = options
-        ? options.map((o) => (
-              <label key={name + '-' + o.id} className={s.label}>
+        ? options.map((option) => (
+              <label key={name + '-' + option.id} className={s.label}>
                   <input
-                      id={id + '-input-' + o.id}
+                      id={id + '-input-' + option.id}
                       className={finalRadioClassName}
-                      type={'radio'}
-                      checked={o.id === value}
-                      value={o.id}
+                      type={'radio'} // собственный атрибут инпута
                       name={name}
+                      checked={option.id === value} // собственный атрибут инпута
+                      value={option.id}
                       // name, checked, value делают студенты
 
                       onChange={onChangeCallback}
                       {...restProps}
                   />
                   <span
-                      id={id + '-span-' + o.id}
+                      id={id + '-span-' + option.id}
                       {...spanProps}
                       className={spanClassName}
                   >
-                      {o.value}
+                      {option.value}
                   </span>
               </label>
           ))
