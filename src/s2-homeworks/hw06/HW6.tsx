@@ -11,6 +11,7 @@ import s from './HW6.module.css'
  * 3 - сделать стили в соответствии с дизайном
  */
 
+// карандашик с ипутом
 const HW6 = () => {
     const [value, setValue] = useState<string>('')
 
@@ -25,7 +26,6 @@ const HW6 = () => {
     return (
         <div id={'hw6'}>
             <div className={s2.hwTitle}>Homework #6</div>
-
             {/*демонстрация возможностей компоненты:*/}
             <div className={s2.hw}>
                 <div className={s.editableSpanContainer}>

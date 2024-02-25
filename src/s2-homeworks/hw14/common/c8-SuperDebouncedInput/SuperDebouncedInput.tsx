@@ -8,7 +8,7 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 
 // здесь мы говорим что у нашего инпута будут такие же пропсы как у обычного инпута, кроме type
 // (чтоб не писать value: string, onChange: ...; они уже все описаны в DefaultInputPropsType)
-export type SuperDebouncedInputPropsType = Omit<DefaultInputPropsType, 'type'> & {
+export type SuperDebouncedInputProps = Omit<DefaultInputPropsType, 'type'> & {
     // и + ещё пропсы которых нет в стандартном инпуте
     onChangeText?: (value: string) => void
     onEnter?: () => void
@@ -19,7 +19,7 @@ export type SuperDebouncedInputPropsType = Omit<DefaultInputPropsType, 'type'> &
     onDebouncedChange?: (value: string) => void
 }
 
-const SuperDebouncedInput: React.FC<SuperDebouncedInputPropsType> = (
+const SuperDebouncedInput: React.FC<SuperDebouncedInputProps> = (
     {
         onChangeText,
         onDebouncedChange,
@@ -35,6 +35,7 @@ const SuperDebouncedInput: React.FC<SuperDebouncedInputPropsType> = (
         if (onDebouncedChange) {
             timerId && clearTimeout(timerId)
             const id = setTimeout(() => {
+                // тут вызвали колбек что нам передал родитель
                 onDebouncedChange(value)
             }, 1500)
             setTimerId(+id)

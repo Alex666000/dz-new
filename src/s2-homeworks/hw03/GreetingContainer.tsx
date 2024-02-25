@@ -37,6 +37,7 @@ const GreetingContainer: React.FC<GreetingContainerPropsType> = (
         users,
         addUserCallback,
     }) => {
+
     // деструктуризация пропсов
     const [name, setName] = useState<string>('') // need to fix any
     const [error, setError] = useState<string>('') // need to fix any

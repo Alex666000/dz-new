@@ -26,8 +26,12 @@ type ParamsType = {
     page: number
     count: number
 }
+// search квери параметры:
+// Анализируем работу снизу как все прилетает - с точки зрения юзера - предварительно
+// на UX на сайте посмотреть как работает логику понять
 
-const getTechs = (params: ParamsType) => {
+// декларация определение запроса на сервер:
+const getTechsRequest = (params: ParamsType) => {
     return axios
         .get<{ techs: TechType[], totalCount: number }>(
             'https://samurai.it-incubator.io/api/3.0/homework/test3',
@@ -38,51 +42,73 @@ const getTechs = (params: ParamsType) => {
         })
 }
 
+// Пагинация
 const HW15 = () => {
+    // сортировка
     const [sort, setSort] = useState('')
+    // текущая страница (каждая страница возвращает по 4 записи - размер страницы - count)
     const [page, setPage] = useState(1)
-    const [count, setCount] = useState(4)
-    const [idLoading, setLoading] = useState(false)
-    const [totalCount, setTotalCount] = useState(100)
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [techs, setTechs] = useState<TechType[]>([])
 
+    // размер страницы (записей tech - кол-во элементов что храним на каждой стр.)
+    // у нас 4 tech === 4 - делаем размер страницы из 4 навыков
+    const [count, setCount] = useState(4)
+
+    // стейт для загрузки
+    const [idLoading, setLoading] = useState(false)
+
+    // всего всех techs === 100 по умолчанию ставим - потом обновим когда с сервера придет
+    // количество что там хранится на сервере - им обновим наш стеит например 78 получим а не 100
+    const [totalCount, setTotalCount] = useState(100)
+
+    // searchParams -все параметры после ? после названия эндпоинта или http адреса
+    // setSearchParams - обновляет адресную строку - установим в стейт (локальный или глобальный)
+    // параметры что ввел юзер (его поисковый запрос), и новое обновленное значение в стейте
+    // будет иметь например вид как:
+    // 'https://samurai.it-incubator.io/api/3.0/homework/test3'?page=2&count=12&sort=tech
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    const [techs, setTechs] = useState<TechType[]>([]) // techs - навыки
+
+    // делаем запрос на сервак - всегда get запрос с квери параметрами которые выбрал юзер на UI
     const sendQuery = (params: any) => {
         setLoading(true)
-        getTechs(params)
+        getTechsRequest(params)
             .then((res) => {
+                // когда получили - сохранить пришедшие данные в стейт
                 if (res) {
+                    // смотрим апишку что приходит или консоль или дебаг
                     setTechs(res.data.techs)
+                    // установили всего сколько пришло
                     setTotalCount(res.data.totalCount)
                 }
                 setLoading(false)
             })
     }
 
+// при изменении страницы по клику на span снова отправляем запрос
     const onChangePagination = (newPage: number, newCount: number) => {
         // делает студент
-
         setPage(newPage)
         setCount(newCount)
-        //
-        // sendQuery({ sort, page, count})
+        // устанавливаем параметры в урл что выбрал пользователь - урл обновится
+        // чтобы достать оттуда значения searchParams.get() - Непомнящий
+        // тк sort не прокинули сюда - в стейте стоит по умолчанию пустая строка
         setSearchParams([['page', newPage.toString()],['count', newCount.toString()],['sort', sort]])
-        //
     }
 
+    // изменение сортировки
     const onChangeSort = (newSort: string) => {
         // делает студент
-
         setSort(newSort)
         setPage(1)
-        //
         // sendQuery({ sort, page, count})
         setSearchParams([['page', '1'],['count', count.toString()],['sort', newSort]])
-        //
     }
 
+    // получаем все элементы при первой загрузке страницы - делаем запрос к АПИ
+    // при изменении, обновлении searchParams повторно поидет запрос за актуальными данными
     useEffect(() => {
-        const params = Object.fromEntries(searchParams)
+        const params = Object.fromEntries(searchParams) // объект: ключ-значение
         // sendQuery({page: params.page, count: params.count})
         sendQuery(params)
 
@@ -90,6 +116,7 @@ const HW15 = () => {
         setCount(+params.count || 4)
     }, [searchParams])
 
+    // мапимся переменная вынесли
     const mappedTechs = techs.map(t => (
         <div key={t.id} className={s.row}>
             <div id={'hw15-tech-' + t.id} className={s.tech}>
@@ -110,8 +137,8 @@ const HW15 = () => {
                 {idLoading && <div id={'hw15-loading'} className={s.loading}>Loading...</div>}
 
                 <SuperPagination
-                    page={page}
-                    itemsCountForPage={count}
+                    currentPage={page}
+                    newCount={count}
                     totalCount={totalCount}
                     onChange={onChangePagination}
                 />

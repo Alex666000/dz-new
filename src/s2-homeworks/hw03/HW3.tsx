@@ -31,6 +31,7 @@ export const pureAddUserCallback = (name: string, setUsers: (users: UserType[]) 
     setUsers([...users, user])
 }
 
+// Инпут с кнопкой которая дизейблится
 const HW3 = () => {
     const [users, setUsers] = useState<UserType[]>([]) // need to fix any
 

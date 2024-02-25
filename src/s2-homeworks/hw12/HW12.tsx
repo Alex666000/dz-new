@@ -11,6 +11,7 @@ import {AppStoreType} from '../hw10/bll/store';
 * 2 - получить themeId из редакса
 * 3 - дописать тип и логику функции change
 * 4 - передать пропсы в SuperSelect
+* по селекту по выбору опции селекта -- меняем тему приложения
 * */
 
 const themes = [

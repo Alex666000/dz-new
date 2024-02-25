@@ -11,6 +11,7 @@ export const PATH = {
     JUNIOR_PLUS: '/junior-plus',
 }
 
+// роутинг маршруты роутер
 function Pages() {
     return (
         <div>

@@ -11,6 +11,7 @@ import {useSearchParams} from 'react-router-dom'
 * 3 - дописать функцию onChangeText в HW14 +
 * 4 - сделать стили в соответствии с дизайном
 * 5 - добавить HW14 в HW5/pages/JuniorPlus
+* Дебаунс
 * */
 
 const getTechs = (find: string) => {
@@ -27,7 +28,10 @@ const getTechs = (find: string) => {
 const HW14 = () => {
     const [find, setFind] = useState('')
     const [isLoading, setLoading] = useState(false)
+
+    // параметры с урла достаем фильтры - поисковые параметры:
     const [searchParams, setSearchParams] = useSearchParams()
+
     const [techs, setTechs] = useState<string[]>([])
 
     const sendQuery = (value: string) => {
@@ -48,7 +52,7 @@ const HW14 = () => {
         // делает студент
 
         // добавить/заменить значение в квери урла
-        // setSearchParams(
+        // setSearchParams( устанавливаем текст в урсл - что ввел пользователь в инпут
         setSearchParams(value)
         //
     }

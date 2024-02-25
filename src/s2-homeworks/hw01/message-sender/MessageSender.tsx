@@ -4,7 +4,6 @@ import s from './MessageSender.module.css'
 
 // компонента, которая тестирует вашу компоненту (не изменять, any не трогать)
 const MessageSender = (props: any) => {
-    const M = props.M
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const [messages, setMessages] = useState<any[]>([])
     const [text, setText] = useState<any>('')
@@ -42,10 +41,11 @@ const MessageSender = (props: any) => {
     return (
         <>
             {messages.map((m) => (
-                <M key={'message' + m.id} message={m} />
+                <props.M key={'message' + m.id} message={m} />
             ))}
 
             <div id={'hw1-send-message-form'} className={s.sendForm}>
+                {/*для ввода сообщения*/}
                 <textarea
                     id={'hw1-textarea'}
                     className={s.textarea}

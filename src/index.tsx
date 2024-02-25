@@ -3,18 +3,18 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./s1-main/App";
 import reportWebVitals from "./reportWebVitals";
-import store from "./s2-homeworks/hw10/bll/store";
 import {Provider} from "react-redux";
+import store from "./s2-homeworks/hw10/bll/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   // @ts-ignore
   <Provider store={store}>
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>
-</Provider>
-)
+    <React.StrictMode>
+      <App/>
+    </React.StrictMode>
+  </Provider>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

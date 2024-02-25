@@ -12,6 +12,7 @@ import errorUnknown from './images/error.svg'
 * 1 - дописать функцию send
 * 2 - дизэйблить кнопки пока идёт запрос
 * 3 - сделать стили в соответствии с дизайном
+* картинки ошибок 200 400 500 error
 * */
 
 const HW13 = () => {
@@ -40,6 +41,7 @@ const HW13 = () => {
                 setInfo(res.data.info)
             })
             .catch((e) => {
+                // обработка ошибок
                 if (e.response.status === 400) {
                     setCode('Ошибка 400!')
                     setImage(error400)
